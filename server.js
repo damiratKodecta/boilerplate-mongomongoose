@@ -130,7 +130,7 @@ router.post("/create-many-people", function (req, res, next) {
           return next(err);
         }
         res.json(pers);
-        Person.remove().exec();
+        Person.deleteMany().exec();
       });
     });
   });
@@ -155,7 +155,7 @@ router.post("/find-all-by-name", function (req, res, next) {
         return next({ message: "Missing callback argument" });
       }
       res.json(data);
-      Person.remove().exec();
+      Person.deleteMany().exec();
     });
   });
 });
@@ -180,7 +180,7 @@ router.post("/find-one-by-food", function (req, res, next) {
         return next({ message: "Missing callback argument" });
       }
       res.json(data);
-      p.remove();
+      p.deleteMany();
     });
   });
 });
@@ -205,7 +205,7 @@ router.get("/find-by-id", function (req, res, next) {
         return next({ message: "Missing callback argument" });
       }
       res.json(data);
-      p.remove();
+      p.deleteMany();
     });
   });
 });
@@ -231,7 +231,7 @@ router.post("/find-edit-save", function (req, res, next) {
           return next({ message: "Missing callback argument" });
         }
         res.json(data);
-        p.remove();
+        p.deleteMany();
       });
     } catch (e) {
       console.log(e);
@@ -261,7 +261,7 @@ router.post("/find-one-update", function (req, res, next) {
           return next({ message: "Missing callback argument" });
         }
         res.json(data);
-        p.remove();
+        p.deleteMany();
       });
     } catch (e) {
       console.log(e);
@@ -315,7 +315,7 @@ router.post("/remove-one-person", function (req, res, next) {
 
 const removeMany = require("./myApp.js").removeManyPeople;
 router.post("/remove-many-people", function (req, res, next) {
-  Person.remove({}, function (err) {
+  Person.deleteMany({}, function (err) {
     if (err) {
       return next(err);
     }
