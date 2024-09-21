@@ -1,7 +1,8 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGO_URI || 'http://localhost', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URI || 'http://localhost', 
+  { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify : false, useCreateIndex: true });
 
 
 const Schema = mongoose.Schema;
@@ -94,24 +95,34 @@ const findEditThenSave = (personId, done) => {
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
-
-  Person.findOneAndUpdate({name: personName}, {age: ageToSet}, {new: true}, (error, updateDoc) => {
+ //console.log('before');
+  Person.findOneAndUpdate({name: personName}, {age: ageToSet}, {new: true}, (err, updatedDoc) => {
+   // console.log('in findOneAndUpdate');
     if (err) return console.log(err);
-    done(null, updateDoc)
+    done(null, updatedDoc);
 
   })
 
-  done(null /*, data*/);
+ // done(null /*, data*/);
 };
 
 const removeById = (personId, done) => {
-  done(null /*, data*/);
+
+  Person.findByIdAndRemove( personId, (err, data) => {
+      if (err) return console.log(err);
+      done(null, data);
+    });
+
 };
 
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
 
-  done(null /*, data*/);
+  Person.deleteMany({name: nameToRemove}, (err, response) => {
+    if(err) return console.log(err);
+    done(null, response);
+  })
+  
 };
 
 const queryChain = (done) => {
