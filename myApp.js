@@ -57,23 +57,49 @@ var findPeopleByName = function(personName, done) {
   });
 };
 
-
-const findOneByFood = (food, done) => {
-  done(null /*, data*/);
+/** 6) Use `Model.findOne()` */
+var findOneByFood = function(food, done) {
+  Person.findOne({favoriteFoods: food}, function (err, data) {
+    if (err) return console.log(err);
+    done(null, data);
+  });
 };
 
 const findPersonById = (personId, done) => {
-  done(null /*, data*/);
+  Person.findById(personId, function (err, data) {
+    if (err) return console.log(err);
+    done(null, data);
+  });
 };
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
 
-  done(null /*, data*/);
+  Person.findById(personId, function (err, person) {
+    if (err) return console.log(err);
+
+     // Array.push() method to add "hamburger" to the list of the person's favoriteFoods
+     person.favoriteFoods.push(foodToAdd);
+
+     // and inside the find callback - save() the updated Person.
+     person.save((err, updatedPerson) => {
+       if(err) return console.log(err);
+       done(null, updatedPerson)
+     })
+
+    //done(null, data);
+  });
+  //done(null /*, data*/);
 };
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
+
+  Person.findOneAndUpdate({name: personName}, {age: ageToSet}, {new: true}, (error, updateDoc) => {
+    if (err) return console.log(err);
+    done(null, updateDoc)
+
+  })
 
   done(null /*, data*/);
 };
