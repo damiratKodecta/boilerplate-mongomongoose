@@ -101,14 +101,14 @@ router.get("/create-and-save-person", function (req, res, next) {
         return next(err);
       }
       res.json(pers);
-      pers.deleteMany();
+      pers.remove();
     });
   });
 });
 
 const createPeople = require("./myApp.js").createManyPeople;
 router.post("/create-many-people", function (req, res, next) {
-  Person.deleteMany({}, function (err) {
+  Person.remove({}, function (err) {
     if (err) {
       return next(err);
     }
@@ -130,7 +130,7 @@ router.post("/create-many-people", function (req, res, next) {
           return next(err);
         }
         res.json(pers);
-        Person.deleteMany().exec();
+        Person.remove().exec();
       });
     });
   });
@@ -155,7 +155,7 @@ router.post("/find-all-by-name", function (req, res, next) {
         return next({ message: "Missing callback argument" });
       }
       res.json(data);
-      Person.deleteMany().exec();
+      Person.remove().exec();
     });
   });
 });
@@ -180,7 +180,7 @@ router.post("/find-one-by-food", function (req, res, next) {
         return next({ message: "Missing callback argument" });
       }
       res.json(data);
-      p.deleteMany();
+      p.remove();
     });
   });
 });
@@ -205,7 +205,7 @@ router.get("/find-by-id", function (req, res, next) {
         return next({ message: "Missing callback argument" });
       }
       res.json(data);
-      p.deleteMany();
+      p.remove();
     });
   });
 });
@@ -231,7 +231,7 @@ router.post("/find-edit-save", function (req, res, next) {
           return next({ message: "Missing callback argument" });
         }
         res.json(data);
-        p.deleteMany();
+        p.remove();
       });
     } catch (e) {
       console.log(e);
@@ -261,7 +261,7 @@ router.post("/find-one-update", function (req, res, next) {
           return next({ message: "Missing callback argument" });
         }
         res.json(data);
-        p.deleteMany();
+        p.remove();
       });
     } catch (e) {
       console.log(e);
@@ -315,7 +315,7 @@ router.post("/remove-one-person", function (req, res, next) {
 
 const removeMany = require("./myApp.js").removeManyPeople;
 router.post("/remove-many-people", function (req, res, next) {
-  Person.deleteMany({}, function (err) {
+  Person.remove({}, function (err) {
     if (err) {
       return next(err);
     }
@@ -369,7 +369,7 @@ router.post("/query-tools", function (req, res, next) {
   let t = setTimeout(() => {
     next({ message: "timeout" });
   }, TIMEOUT);
-  Person.deleteMany({}, function (err) {
+  Person.remove({}, function (err) {
     if (err) {
       return next(err);
     }

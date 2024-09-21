@@ -139,10 +139,11 @@ const queryChain = (done) => {
   .sort({ name: 1 })
   .limit(2)
   .select({ age: 0 })
-  .exec(function(error, people) {
+ .exec(function(error, people) {
     //do something here
     done(error, data);
-  });
+  } 
+); 
 
   
 };
