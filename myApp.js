@@ -4,10 +4,32 @@ const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URI || 'http://localhost', { useNewUrlParser: true, useUnifiedTopology: true });
 
 
-let Person;
+const Schema = mongoose.Schema;
 
-const createAndSavePerson = (done) => {
-  done(null /*, data*/);
+var  personSchema = new Schema({
+  name: { type: String, required: true },
+  age: Number,
+  favoriteFoods: [String]
+});
+
+var Person = mongoose.model("Person", personSchema);
+
+var createAndSavePerson = function(done) {
+  var janeFonda = new Person({name: "Jane Fonda", 
+    age: 84, 
+    favoriteFoods: [
+      "eggs", 
+      "fish", 
+      "fresh fruit"]
+    });
+
+  janeFonda.save(function(err, data) {
+    if (err) {
+      console.log('greska:'+err);
+      return console.error(err);
+    }
+    done(null, data)
+  });
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
