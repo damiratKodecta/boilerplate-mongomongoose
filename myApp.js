@@ -1,8 +1,15 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGO_URI || 'http://localhost', 
-  { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify : false, useCreateIndex: true });
+mongoose.connect(process.env.MONGO_URI || 'http://localhost' 
+/*  { useNewUrlParser: true, useUnifiedTopology: true 
+     useFindAndModify : false, 
+     useCreateIndex: true 
+    }
+*/     
+);
+
+
 
 
 const Schema = mongoose.Schema;
