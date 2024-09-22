@@ -132,7 +132,7 @@ const removeManyPeople = (done) => {
   
 };
 
-const queryChain = (done) => {
+const queryChain = function(done) {
   const foodToSearch = "burrito";
 
   Person.find({ food: foodToSearch})
