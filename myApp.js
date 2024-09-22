@@ -1,12 +1,12 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGO_URI || 'http://localhost' 
-/*  { useNewUrlParser: true, useUnifiedTopology: true 
+mongoose.connect(process.env.MONGO_URI || 'http://localhost' ,
+  { useNewUrlParser: true, useUnifiedTopology: true ,
      useFindAndModify : false, 
      useCreateIndex: true 
     }
-*/     
+     
 );
 
 
@@ -139,9 +139,10 @@ const queryChain = (done) => {
   .sort({ name: 1 })
   .limit(2)
   .select({ age: 0 })
- .exec(function(error, people) {
+  .exec(function(err, people) {
     //do something here
-    done(error, data);
+    if (err) return console.log(err);
+    done(null, people);
   } 
 ); 
 
