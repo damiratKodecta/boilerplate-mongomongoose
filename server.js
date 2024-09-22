@@ -369,7 +369,11 @@ router.post("/query-tools", function (req, res, next) {
   let t = setTimeout(() => {
     next({ message: "timeout" });
   }, TIMEOUT);
-  Person.remove({}, function (err) {
+  // ------------ instead of remote
+  //--------------- to remove (node:3110) DeprecationWarning: 
+  // collection.remove is deprecated. Use deleteOne, deleteMany, or bulkWrite instead.
+  //
+  Person.deleteOne({}, function (err) {
     if (err) {
       return next(err);
     }
